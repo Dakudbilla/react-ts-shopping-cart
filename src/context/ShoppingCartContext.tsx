@@ -9,6 +9,7 @@ type ShoppingCartContext = {
     increaseCartmQuantity: (id: number) => void
     decreaseCartmQuantity: (id: number) => void
     removeFromCart: (id: number) => void
+    cartQuantity: number
 }
 
 type CartItem = {
@@ -59,7 +60,16 @@ export const ShoppingCartProvider = ({ children }: shoppingCartProviderProps) =>
     const removeFromCart = (id: number) => {
         return setCartItems(currentItems => currentItems.filter(item => item.id !== id))
     }
-    return (<shoppingCartContext.Provider value={{ getItemQuantity, increaseCartmQuantity, decreaseCartmQuantity, removeFromCart }}>
+
+    const numItemsInCart = () => {
+        let sum = 0
+        cartItems.map((item) => {
+            sum += item.quantity
+        })
+
+        return sum
+    }
+    return (<shoppingCartContext.Provider value={{ getItemQuantity, increaseCartmQuantity, decreaseCartmQuantity, removeFromCart, cartQuantity: numItemsInCart() }}>
         {children}
     </shoppingCartContext.Provider>)
 }
