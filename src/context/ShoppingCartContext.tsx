@@ -5,7 +5,6 @@ import useLocalStorage from "../hooks/useLocalStorage"
 type shoppingCartProviderProps = {
     children: ReactNode
 }
-
 type ShoppingCartContext = {
     getItemQuantity: (id: number) => number
     increaseCartmQuantity: (id: number) => void
